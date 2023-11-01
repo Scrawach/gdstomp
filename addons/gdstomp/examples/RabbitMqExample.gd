@@ -14,7 +14,7 @@ func _ready() -> void:
 	await stomp_client.connection.connected;
 	stomp_client.send(STOMPPacket.connection("/", "admin", "admin"))
 	var connected_packed: STOMPPacket = await stomp_client.received;
-	
+	stomp_client.send(STOMPPacket.to("/queue/test").with_message("Hello, World!"))
 
 func _process(delta: float) -> void:
 	stomp_client.poll();
