@@ -3,7 +3,6 @@ extends RefCounted
 
 const body_separator: String = "\n\n"
 
-signal connected(packet: STOMPPacket)
 signal received(packet: STOMPPacket)
 
 var connection: STOMPConnection
@@ -74,11 +73,7 @@ func clear() -> void:
 func _on_received_bytes(bytes: PackedByteArray) -> void:
 	var message: String = bytes.get_string_from_utf8()	
 	var packet: STOMPPacket = _unpack_message(message)
-	_invoke_listeners(packet)
-	
-	if packet.is_connected_message():
-		connected.emit(packet)
-	
+	_invoke_listeners(packet)	
 	received.emit(packet)
 
 func _invoke_listeners(packet: STOMPPacket) -> void:
