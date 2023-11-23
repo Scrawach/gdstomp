@@ -1,6 +1,28 @@
 # gdstomp
 Godot 4 addon for accessing messaging servers using the STOMP protocol.
 
+## Quick start
+
+Source code for quick start with `RabbitMq` you can find [here in examples](/addons/gdstomp/examples/RabbitMqExample.gd).
+
+```gdscript
+var stomp_client: STOMPClient = STOMP.over_tcp()
+
+func _ready() -> void:
+  var connect_error: int = stomp_client.connect_to_host("127.0.0.1:61613")
+  
+  if connect_error != OK:
+    push_error("connection error: %s" % connect_error)
+  
+  await stomp_client.connection.connected;
+  stomp_client.send(STOMPPacket.connection("/", "admin", "admin"))
+  var connected_packed: STOMPPacket = await stomp_client.received;
+  stomp_client.send(STOMPPacket.to("/queue/test").with_message("Hello, World!"))
+
+func _process(delta: float) -> void:
+  stomp_client.poll();
+```
+
 ## Usage
 
 Create STOMP Client over tcp:
