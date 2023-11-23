@@ -70,3 +70,19 @@ But If you want to filter received data by a specific queue, use `listen` and `u
 ```gdscript
 stomp_client.listen("/queue/test", _on_received_stomp_packet)
 ```
+
+## Websockets
+
+You can use this addon for websocket connection (for WebGL projects, in example). Just use another builder:
+
+```gdscript
+var stomp_client: STOMPClient = STOMP.over_websockets();
+```
+
+And remember that the connection string for websockets is usually different from TCP:
+
+```gdscript
+stomp_client.connect_to_host("ws://192.168.100.157:15674/ws")
+```
+
+It's all. Working with websockets is no different from TCP further.
