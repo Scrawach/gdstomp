@@ -77,10 +77,12 @@ func _on_received_bytes(bytes: PackedByteArray) -> void:
 	received.emit(packet)
 
 func _invoke_listeners(packet: STOMPPacket) -> void:
-	if not packet.headers.has("destination"):
+	const DESTINATION: String = "destination"
+	
+	if not packet.headers.has(DESTINATION):
 		return
 	
-	var destination = packet.headers["destination"]
+	var destination = packet.headers[DESTINATION]
 	
 	if callbacks.has(destination):
 		for callback in callbacks[destination]:
