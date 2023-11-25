@@ -1,4 +1,9 @@
 # gdstomp
+
+<p align="left">
+  <img width="128" src="docs/icon_with_borders.svg" alt="Icon">
+</p>
+
 Godot 4 addon for accessing messaging servers using the STOMP protocol.
 
 ## Quick start
