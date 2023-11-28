@@ -4,7 +4,7 @@
   <img width="128" src="docs/icon_with_borders.svg" alt="Icon">
 </p>
 
-Godot 4 addon for accessing messaging servers using the STOMP protocol.
+Godot 4 addon for accessing messaging servers using the [STOMP (1.2)](https://stomp.github.io) protocol.
 
 ## Quick start
 
