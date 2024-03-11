@@ -44,7 +44,10 @@ if connect_error != OK:
   push_error("connection error: $s" % connect_error)
 ```
 
-> **Important!** You need poll STOMP client every frame (or less often) for receive or transceive packets. Process method in nodes is good place for it.
+
+> [!WARNING]
+> You need poll STOMP client every frame (or less often) for receive or transceive packets.  
+> Process method in nodes is good place for it.
 
 ```gdscript
 func _process(delta: float) -> void:
