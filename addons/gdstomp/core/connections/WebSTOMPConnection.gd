@@ -8,14 +8,16 @@ signal start_closing()
 signal closed()
 
 var state: int = -1
-var peer: WebSocketPeer = WebSocketPeer.new()
+var peer: WebSocketPeer
 var tls: TLSOptions
 
-func _init(tls: TLSOptions = null) -> void:
+func _init(handshake_headers: PackedStringArray = [], tls: TLSOptions = null) -> void:
+	self.peer = WebSocketPeer.new()
+	self.peer.handshake_headers = handshake_headers
 	self.tls = tls
 
 func connect_to_host(url: String) -> int:
-	return peer.connect_to_url(url)
+	return peer.connect_to_url(url, tls)
 
 func close(code: int = 1000, reason: String = "") -> void:
 	peer.close(code, reason)

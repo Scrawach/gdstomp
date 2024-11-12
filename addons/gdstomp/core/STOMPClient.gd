@@ -1,7 +1,7 @@
 class_name STOMPClient
 extends RefCounted
 
-const body_separator: String = "\n\n"
+const BODY_SEPARATOR: String = "\n\n"
 
 signal received(packet: STOMPPacket)
 
@@ -89,7 +89,7 @@ func _invoke_listeners(packet: STOMPPacket) -> void:
 			callback.call(packet)
 
 func _unpack_message(message: String) -> STOMPPacket:
-	var content = message.split(body_separator)
+	var content = message.split(BODY_SEPARATOR)
 	var packed_headers = content[0].split("\n")
 	var command = packed_headers[0]
 	var headers = _unpack_headers(packed_headers)
@@ -105,7 +105,7 @@ func _unpack_headers(headers: PackedStringArray) -> Dictionary:
 	return unpacked_headers
 
 func _pack_message(command: String, headers: Dictionary, body: String) -> PackedByteArray:
-	var message: String = command + "\n" + _pack_headers(headers) + body_separator + body
+	var message: String = command + "\n" + _pack_headers(headers) + BODY_SEPARATOR + body
 	var raw_bytes: PackedByteArray = message.to_utf8_buffer()
 	raw_bytes.append(0)
 	return raw_bytes
