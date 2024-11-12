@@ -109,6 +109,14 @@ You can use this addon for websocket connection (for WebGL projects, in example)
 var stomp_client: STOMPClient = STOMP.over_websockets();
 ```
 
+Using websocket may require additional customizations. For example, handshake headers or tls options. You can pass them as method arguments:
+
+```gdscript
+var handshake_headers: PackedStringArray = ["header-1", "header-2"]
+var tls_options: TLSOptions = TLSOptions.client_unsafe()
+var stomp_client: STOMPClient = STOMP.over_websockets(handshake_headers, tls_options)
+```
+
 And remember that the connection string for websockets is usually different from TCP:
 
 ```gdscript
