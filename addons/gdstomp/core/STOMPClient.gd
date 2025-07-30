@@ -105,7 +105,11 @@ func _unpack_headers(headers: PackedStringArray) -> Dictionary:
 	return unpacked_headers
 
 func _pack_message(command: String, headers: Dictionary, body: String) -> PackedByteArray:
-	var message: String = command + "\n" + _pack_headers(headers) + BODY_SEPARATOR + body
+	var message: String
+	if command == "CONNECT" or command == "DISCONNECT":
+		message = command + "\n" + _pack_headers(headers) + BODY_SEPARATOR
+	else:
+		message = command + "\n" + _pack_headers(headers) + BODY_SEPARATOR + body
 	var raw_bytes: PackedByteArray = message.to_utf8_buffer()
 	raw_bytes.append(0)
 	return raw_bytes
@@ -115,4 +119,4 @@ func _pack_headers(headers: Dictionary) -> String:
 	for key in headers:
 		var line = "%s:%s\n" % [key, headers[key]]
 		packed_headers += line
-	return packed_headers
+	return packed_headers.left(-1)
