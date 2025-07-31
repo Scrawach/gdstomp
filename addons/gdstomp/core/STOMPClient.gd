@@ -115,4 +115,4 @@ func _pack_headers(headers: Dictionary) -> String:
 	for key in headers:
 		var line = "%s:%s\n" % [key, headers[key]]
 		packed_headers += line
-	return packed_headers
+	return packed_headers.left(-1)
